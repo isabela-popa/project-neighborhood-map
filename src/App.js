@@ -18,7 +18,14 @@ class App extends Component {
   createMap = () => {
     let newMap = new window.google.maps.Map(document.getElementById('map'), {
       center: { lat: 47.158455, lng: 27.601442 },
+      // center: { lat: 47.156944, lng: 27.590278 },
       zoom: 13
+    });
+    let palaceOfCulture = { lat: 47.15739, lng: 27.58695 };
+    let pointMarker = new window.google.maps.Marker({
+      position: palaceOfCulture,
+      map: newMap,
+      title: 'Palace of Culture'
     });
   }
 
