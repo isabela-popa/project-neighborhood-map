@@ -10,7 +10,7 @@ class App extends Component {
 
   // Load Google Maps JavaScript API
   loadMapsApi = () => {
-    loadGoogleMapsApi("https://maps.googleapis.com/maps/api/js?key=AIzaSyD6RR0E71krN0b40PtcY6Imbf7Bgp4y6qg&v=3&callback=createMap");
+    loadGoogleMapsApi("https://maps.googleapis.com/maps/api/js?key=AIzaSyD6RR0E71krN0b40PtcY6Imbf7Bgp4y6qg&callback=createMap");
     window.createMap = this.createMap;
   }
 
@@ -27,7 +27,14 @@ class App extends Component {
       map: newMap,
       title: 'Palace of Culture'
     });
+    let pointInfowindow = new window.google.maps.InfoWindow({
+      content: '<strong>Palace of Culture</strong><br/>The Palace has 298 large rooms with a total area of 34,236 m2 (368,510 sq ft), 92 windows in the front part of the building and another 36 inside the building.'
+    });
+    pointMarker.addListener('click', () => {
+      pointInfowindow.open(newMap, pointMarker);
+    });
   }
+
 
   render() {
     return (
