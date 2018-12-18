@@ -1,24 +1,36 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
-import { loadGoogleMapsApi } from './MapAPI';
+import * as MapAPI from './MapAPI';
+
 
 class App extends Component {
+  state = {
+    places: []
+  }
   componentDidMount() {
     this.loadMapsApi();
+    this.getPlaces();
+  }
+
+  getPlaces = () => {
+    MapAPI.getAllPlaces().then(places => {
+      this.setState({ places });
+    });
   }
 
   // Load Google Maps JavaScript API
   loadMapsApi = () => {
-    loadGoogleMapsApi("https://maps.googleapis.com/maps/api/js?key=AIzaSyD6RR0E71krN0b40PtcY6Imbf7Bgp4y6qg&callback=createMap");
+    MapAPI.loadGoogleMapsApi("https://maps.googleapis.com/maps/api/js?key=AIzaSyD6RR0E71krN0b40PtcY6Imbf7Bgp4y6qg&callback=createMap");
     window.createMap = this.createMap;
   }
 
   // Create a new map
   createMap = () => {
     let newMap = new window.google.maps.Map(document.getElementById('map'), {
-      center: { lat: 47.158455, lng: 27.601442 },
+      // center: { lat: 47.158455, lng: 27.601442 },
+      center: { lat: 47.1584549, lng: 27.6014418 },
       // center: { lat: 47.156944, lng: 27.590278 },
+      // center: { lat: 47.162222, lng: 27.588889 },
       zoom: 13
     });
     let palaceOfCulture = { lat: 47.15739, lng: 27.58695 };
@@ -36,22 +48,27 @@ class App extends Component {
   }
 
 
+
+
+
+
+
   render() {
     return (
       <div className="App">
         <main id="map">
           {/* <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a> */}
+            <p>
+              Edit <code>src/App.js</code> and save to reload.
+            </p>
+            <a
+              className="App-link"
+              href="https://reactjs.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Learn React
+            </a> */}
         </main>
       </div>
     );
