@@ -5,17 +5,20 @@ import * as MapAPI from './MapAPI';
 
 class App extends Component {
   state = {
-    places: []
+    places: [],
+    markers: []
   }
+
   componentDidMount() {
-    this.loadMapsApi();
     this.getPlaces();
   }
 
   getPlaces = () => {
-    MapAPI.getAllPlaces().then(places => {
-      this.setState({ places });
-    });
+    MapAPI.getAllPlaces()
+      .then(places => {
+        this.setState({ places });
+      })
+      .then(() => this.loadMapsApi());
   }
 
   // Load Google Maps JavaScript API
@@ -33,25 +36,50 @@ class App extends Component {
       // center: { lat: 47.162222, lng: 27.588889 },
       zoom: 13
     });
-    let palaceOfCulture = { lat: 47.15739, lng: 27.58695 };
-    let pointMarker = new window.google.maps.Marker({
-      position: palaceOfCulture,
-      map: newMap,
-      title: 'Palace of Culture'
-    });
-    let pointInfowindow = new window.google.maps.InfoWindow({
-      content: '<strong>Palace of Culture</strong><br/>The Palace has 298 large rooms with a total area of 34,236 m2 (368,510 sq ft), 92 windows in the front part of the building and another 36 inside the building.'
-    });
-    pointMarker.addListener('click', () => {
-      pointInfowindow.open(newMap, pointMarker);
-    });
+
+    // Create an info window instance
+    let largeInfowindow = new window.google.maps.InfoWindow();
+
+    // Adjust the boundaries of the map to fit listings that may be outside the initial zoom area
+    let bounds = new window.google.maps.LatLngBounds();
+
+    // Use the places array to create an array of markers on initialize.
+    for (var i = 0; i < this.state.places.length; i++) {
+      // Get the position from the places array.
+      let position = { lat: this.state.places[i].location.lat, lng: this.state.places[i].location.lng };
+      let title = this.state.places[i].name;
+      // Create a marker per location, and put into markers array.
+      let marker = new window.google.maps.Marker({
+        map: newMap,
+        position: position,
+        title: title,
+        animation: window.google.maps.Animation.DROP,
+        id: this.state.places[i].id
+      });
+      // Push the marker to the array of markers.
+      this.state.markers.push(marker);
+      // Extend the boundaries of the map for every marker that is made
+      bounds.extend(marker.position);
+      // Create an onclick event to open an infowindow at each marker.
+      marker.addListener('click', () => this.populateInfoWindow(marker, largeInfowindow));
+      // Tell the map to fit itself to the bounds
+      marker.map.fitBounds(bounds);
+    }
   }
 
-
-
-
-
-
+  // Populate the infowindow when the marker is clicked. It will be only allowed
+  // one infowindow which will open at the marker that is clicked, and populate based
+  // on that markers position.
+  populateInfoWindow = (marker, infowindow) => {
+    // Check to make sure the infowindow is not already opened on this marker.
+    if (infowindow.marker !== marker) {
+      infowindow.marker = marker;
+      infowindow.setContent('<div>' + marker.title + '</div>');
+      infowindow.open(marker.map, marker);
+      // Make sure the marker property is cleared if the infowindow is closed.
+      infowindow.addListener('closeclick', () => infowindow.setMarker = null);
+    }
+  }
 
   render() {
     return (
