@@ -6,7 +6,8 @@ import * as MapAPI from './MapAPI';
 class App extends Component {
   state = {
     places: [],
-    markers: []
+    markers: [],
+    // sidelistOpen: true
   }
 
   componentDidMount() {
@@ -81,9 +82,37 @@ class App extends Component {
     }
   }
 
+  // Toggle the sidelist when the menu icon is clicked.
+  toggleMenu = (e) => {
+    // let menu = document.getElementById('header-menu');
+    let sidelist = document.getElementById('sidelist');
+
+    sidelist.classList.toggle('sidelist-close');
+    e.stopPropagation();
+    // this.setState({
+    //   sidelistOpen: !this.state.sidelistOpen
+    // })
+
+    // menu.addEventListener('click', function() {
+    //   sidelist.classList.remove('sidelist-close');
+    // });
+  }
+
   render() {
     return (
-      <div className="App">
+      <div className="app">
+        <header id="header">
+          <a id="header-menu" onClick={(e) => this.toggleMenu(e)}>
+            {/* Web foundations - Common Responsive Patterns - Lesson 14 */}
+            <svg xmlns="http://www.w3.org/TR/SVG" viewBox="0 0 24 24">
+              <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z" />
+            </svg>
+          </a>
+          <h1 id="header-title">
+            Tourist Attractions in Jassy
+          </h1>
+        </header>
+        <nav id="sidelist"></nav>
         <main id="map">
           {/* <img src={logo} className="App-logo" alt="logo" />
             <p>
