@@ -1,21 +1,44 @@
 html,
 body,
+#root,
 .app {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#header {
+  background: #2a2e36;
+  color: #e0e0e0;
+  flex: 1;
+}
+
+.content {
+  position: relative;
+  flex: 99;
   width: 100%;
-  /* font-family:; */
-  /* box-sizing: border-box; */
+  background: #2a2e36;
 }
 
 #map {
-  height: 100vh;
+  height: 100%;
+  width: calc(100% - 300px);
+  transition: 0.3s ease;
+  float: left;
+  position: absolute;
+  top: 0;
+  left: 300px;
+}
+#map.map-full {
+  width: 100%;
+  left:0;
 }
 
 #sidelist {
   width: 300px;
-  /* height: calc(100vh - 42px); */
   height: 100%;
   position: absolute;
   transform: translate(0px, 0);
@@ -23,13 +46,6 @@ body,
   z-index: 1000;
   background: #2a2e36;
   overflow-y: hidden;
-}
-
-#header {
-  background: #2a2e36;
-  color: #e0e0e0;
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 1); */
-  /* width: 100%; */
 }
 
 #header-title {
@@ -58,9 +74,6 @@ body,
   margin: 0;
   padding: 0;
   list-style-type: none;
-  /* color: MediumTurquoise; */
-  /* color: PaleTurquoise; */
-  /* color: SkyBlue; */
   color: #e0e0e0;
 }
 
@@ -71,22 +84,16 @@ body,
 }
 
 .search-places {
-  /* width: 100%; */
   border-bottom: 1px solid #e0e0e0;
   display: flex;
   padding: 20px 20px 20px 20px;
-  /* font-size: 1.2em; */
 }
 
 input {
   width: 100%;
 }
-
+/*
 @media screen and (min-width: 600px){
-	/* #sidelist {
-		position: relative;
-		transform: translate(0, 0);
-	} */
 	body {
 		display: flexbox;
 		flex-flow: row nowrap;
@@ -95,4 +102,4 @@ input {
 		width: auto;
     flex-grow: 1;
 	}
-}
+} */
