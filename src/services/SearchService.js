@@ -3,7 +3,7 @@ import escapeRegExp from 'escape-string-regexp';
 import sortBy from 'sort-by';
 
 export function searchPlaces(places, query) {
-
+  // Source: Building with react - Lesson 3 - State Management
     let results;
 
     if (query) {

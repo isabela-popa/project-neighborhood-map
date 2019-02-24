@@ -31,7 +31,7 @@ class App extends Component {
         {/* Header */}
         <header id="header">
           <a id="header-menu" onClick={(e) => this.toggleMenu(e)}>
-            {/* Web foundations - Common Responsive Patterns - Lesson 14 */}
+            {/* Source: Web foundations - Common Responsive Patterns - Lesson 14 */}
             <svg xmlns="http://www.w3.org/TR/SVG" viewBox="0 0 24 24">
               <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z" />
             </svg>
@@ -64,7 +64,6 @@ class App extends Component {
   componentDidMount() {
     this.cacheDomElems();
     this.initMapsAndLocations();
-
   }
 
   /** Wait for gmaps and places to be ready (async both of them) */

@@ -1,5 +1,3 @@
-
-
 const foursquareApi = 'https://api.foursquare.com/v2/';
 const headers = {
     'Accept': 'application/json'
@@ -55,11 +53,28 @@ export function generateMapMarkers(places, map) {
             id: places[i].id
         });
 
+        animateMarkerOnClick(marker);
+
         markers.push(marker);
     }
 
     return markers;
 }
+
+export function animateMarkerOnClick(marker) {
+    // Animate the marker when clicked
+    marker.addListener('click', toggleAnimation);
+
+    function toggleAnimation() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        }
+        setTimeout(() => { marker.setAnimation(null) }, 500);
+    }
+}
+
 
 /** Tooltips can be optional on markers. */
 export function setupTooltipsForMarkers(markers) {

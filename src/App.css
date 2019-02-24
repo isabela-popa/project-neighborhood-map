@@ -16,6 +16,10 @@ body,
   flex: 1;
 }
 
+#header-title {
+  padding-left: 20px;
+}
+
 .content {
   position: relative;
   flex: 99;
@@ -46,6 +50,9 @@ body,
   z-index: 1000;
   background: #2a2e36;
   overflow-y: hidden;
+  overflow: scroll;
+  padding: 0 10px 0;
+  box-sizing: border-box;
 }
 
 #header-title {
@@ -79,14 +86,14 @@ body,
 
 .places-list-item {
   padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
-  margin: 0 10px 0;
+  border-bottom: 1px solid #555;
+  cursor: pointer;
 }
 
 .search-places {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #555;
   display: flex;
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
 }
 
 input {
