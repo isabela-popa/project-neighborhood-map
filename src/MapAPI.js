@@ -1,4 +1,3 @@
-
 // Load the Google Maps JavaScript API
 export function loadGoogleMapsApi(googleMapsApiUrl) {
     const scriptTag = document.createElement("script");
