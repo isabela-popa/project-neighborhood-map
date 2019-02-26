@@ -1,10 +1,11 @@
 import React from 'react';
 import { DebounceInput } from 'react-debounce-input';
+import './PlacesList.css';
 
 class PlacesList extends React.Component {
 
   render() {
-    const { places, onSearch } = this.props;
+    const { places, highlights, onSearch, onClick } = this.props;
 
     return (
       <div className="list-places">
@@ -21,8 +22,9 @@ class PlacesList extends React.Component {
 
         {/* PLaces List */}
         <ol className="places-list">
-          {places.map(place => (
-            <li key={place.id} className="places-list-item">
+          {places.map((place, i) => (
+            <li key={place.id} className={getPlaceElClasses(highlights[i])}
+              onClick={() => onClick(place, i)}>
               {place.name}
             </li>
           ))}
@@ -32,6 +34,14 @@ class PlacesList extends React.Component {
     );
   }
 
+}
+
+function getPlaceElClasses(highlight) {
+  let classes = "places-list-item ";
+  if (highlight === true) {
+    classes += "highlighted";
+  }
+  return classes;
 }
 
 export default PlacesList;

@@ -1,9 +1,16 @@
+
+
 const foursquareApi = 'https://api.foursquare.com/v2/';
 const headers = {
     'Accept': 'application/json'
 };
 
+// Private vars
+let infowindow;
+let bounds;
+
 export function getAllPlaces() {
+    console.log('+++ setup PROMISE getAllPlaces ( sync code stops here)');
     return fetch(`${foursquareApi}venues/search?near=Jassy,Romania&radius=4200&categoryId=4deefb944765f83613cdba6e,` +
         `4bf58dd8d48988d136941735,4bf58dd8d48988d137941735,52e81612bcbc57f1066b7a22,52e81612bcbc57f1066b7a13,` +
         `52e81612bcbc57f1066b7a14,4eb1d4dd4b900d56c88a45fd,4bf58dd8d48988d165941735,52e81612bcbc57f1066b7a32,` +
@@ -11,6 +18,10 @@ export function getAllPlaces() {
         `&client_secret=SVP12TF5XYOZIX3P5HBVZFRE2ER0PDCTGTKYVB0R2PU3MXO0&v=20181216`, { headers })
         .then(response => response.json())
         .then(data => data.response.venues)
+        .then(venues => {
+            console.log('+++ PROMISE OK getAllPlaces venues (async)', venues);
+            return venues;
+        })
         .catch(error => {
             console.error("Cannot read for square data", error);
             // renderWarningTooltip('Cannot get places from Foursquare.')
@@ -26,6 +37,9 @@ export function loadGoogleMapService(googleMapServiceUrl) {
 }
 
 export function initGmapsApiAndPlaceMapInDom() {
+
+    setupMapsUtils();
+
     let mapEl = document.getElementById('map');
     let mapCfg = {
         center: { lat: 47.1584549, lng: 27.6014418 },
@@ -38,22 +52,26 @@ export function initGmapsApiAndPlaceMapInDom() {
 }
 
 export function generateMapMarkers(places, map) {
+    console.log('+++ generateMapMarkers');
     let markers = [];
 
     for (var i = 0; i < places.length; i++) {
 
         // Marker position
         let position = { lat: places[i].location.lat, lng: places[i].location.lng };
-        let title = places[i].name;
+        let place = places[i]
+        let title = place.name;
 
         // Create a marker per location, and put into markers array.
         let marker = new window.google.maps.Marker({
             map, position, title,
             animation: window.google.maps.Animation.DROP,
-            id: places[i].id
+            id: places[i].id,
+            _place: place, // Easy reference for later
         });
 
-        animateMarkerOnClick(marker);
+        // Easy reference for later
+        place._marker = marker;
 
         markers.push(marker);
     }
@@ -61,37 +79,17 @@ export function generateMapMarkers(places, map) {
     return markers;
 }
 
-export function animateMarkerOnClick(marker) {
-    // Animate the marker when clicked
-    marker.addListener('click', toggleAnimation);
-
-    function toggleAnimation() {
-        if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-        } else {
-            marker.setAnimation(window.google.maps.Animation.BOUNCE);
-        }
-        setTimeout(() => { marker.setAnimation(null) }, 500);
-    }
-}
-
-
 /** Tooltips can be optional on markers. */
-export function setupTooltipsForMarkers(markers) {
+export function setupTooltipsForMarkers(markers, callback) {
+    console.log('+++ setupTooltipsForMarkers');
 
-    // Create an info window instance
-    let largeInfowindow = new window.google.maps.InfoWindow();
-
-    // Adjust the boundaries of the map to fit listings that may be outside the initial zoom area
-    let bounds = new window.google.maps.LatLngBounds();
-
-    markers.forEach(marker => {
+    markers.forEach((marker, i) => {
 
         // Extend the boundaries of the map for every marker that is made
         bounds.extend(marker.position);
 
-        // Create an onclick event to open an infowindow at each marker.
-        marker.addListener('click', () => populateInfoWindow(marker, largeInfowindow));
+        // Create an marker onclick event to open an infowindow at each marker.
+        marker.addListener('click', () => callback(marker._place, i));
 
         // Tell the map to fit itself to the bounds
         marker.map.fitBounds(bounds);
@@ -99,8 +97,10 @@ export function setupTooltipsForMarkers(markers) {
     });
 
     // If only one marker, then show tooltip
-    if (markers.length === 1) {
-        populateInfoWindow(markers[0], largeInfowindow);
+    let onlyOneResultVisible = markers.length === 1;
+    if (onlyOneResultVisible) {
+        console.log('+++ onlyOneResultVisible');
+        populateInfoWindow(markers[0]);
     }
 }
 
@@ -109,7 +109,8 @@ export function setupTooltipsForMarkers(markers) {
  * one infowindow which will open at the marker that is clicked, and populate based
  * on that markers position.
  */
-export function populateInfoWindow(marker, infowindow) {
+export function populateInfoWindow(marker) {
+    console.log('+++ populateInfoWindow');
 
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker !== marker) {
@@ -121,6 +122,17 @@ export function populateInfoWindow(marker, infowindow) {
         infowindow.addListener('closeclick', () => infowindow.setMarker = null);
     }
 
+}
+
+// ====== PRIVATE ======
+
+function setupMapsUtils() {
+
+    // Create an info window instance
+    infowindow = new window.google.maps.InfoWindow();
+
+    // Adjust the boundaries of the map to fit listings that may be outside the initial zoom area
+    bounds = new window.google.maps.LatLngBounds();
 }
 
 

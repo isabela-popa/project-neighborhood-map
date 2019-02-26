@@ -3,6 +3,7 @@ import escapeRegExp from 'escape-string-regexp';
 import sortBy from 'sort-by';
 
 export function searchPlaces(places, query) {
+  console.log('+++ searchPlaces');
   // Source: Building with react - Lesson 3 - State Management
     let results;
 
