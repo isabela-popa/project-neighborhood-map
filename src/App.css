@@ -71,6 +71,7 @@ input {
 
 #sidelist {
   width: 300px;
+  max-width: 100%;
   height: 100%;
   position: absolute;
   transform: translate(0px, 0);
@@ -116,14 +117,41 @@ input {
   color: orchid;
 }
 
-/*
-@media screen and (min-width: 600px){
-	body {
-		display: flexbox;
-		flex-flow: row nowrap;
-	}
-	#map {
-		width: auto;
-    flex-grow: 1;
-	}
-} */
+
+@media screen and (max-width: 600px){
+  #header-title {
+    font-size: 1.75em;
+  }
+}
+
+@media screen and (max-width: 460px){
+  #header-title {
+    font-size: 1.5em;
+  }
+}
+
+@media screen and (max-width: 420px){
+  #sidelist {
+    width: 420px;
+  }
+  #sidelist.sidelist-close {
+    transform: translate(-420px, 0);
+  }
+  #header-title {
+    padding: 0 0 10px 10px;
+  }
+  .footer-inner {
+    border-top: 1px solid #555;
+    padding-top: 0.5em;
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 360px){
+  #sidelist {
+    width: 360px;
+  }
+  #sidelist.sidelist-close {
+    transform: translate(-360px, 0);
+  }
+}
