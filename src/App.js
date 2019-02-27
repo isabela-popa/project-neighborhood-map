@@ -24,7 +24,6 @@ class App extends Component {
   markers = [];
 
   render() {
-    console.log('+++ App render');
     let { placesResults, highlights } = this.state;
     // console.log('+++ this.markers', this.markers);
 
@@ -76,20 +75,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('+++ App componentDidMount');
     this.cacheDomElems();
     this.initMapsAndLocations();
   }
 
   /** Wait for gmaps and places to be ready (async both of them) */
   initMapsAndLocations() {
-    console.log('+++ initMapsAndLocations');
     Promise.all([
       MapService.getAllPlaces(),
       this.setupGoogleMapsApi(),
     ])
       .then(([places]) => {
-        console.log('+++ PROMISE ALL OK initMapsAndLocations ');
 
         // Update map
         this.updateMarkersOnMap(places);
@@ -102,39 +98,33 @@ class App extends Component {
 
         // Update navigator
         this.setState({ placesResults: places, highlights });
+      })
+      .catch(error => {
+        console.error("Cannot read forsquare data or cannot render Google Map", error);
+        alert('Cannot get places from Foursquare or cannot load Google Map.');
       });
   }
 
   // ====== Map ======
 
   setupGoogleMapsApi() {
-    console.log('+++ setup PROMISE setupGoogleMapsApi');
     MapService.loadGoogleMapService( // async
       "https://maps.googleapis.com/maps/api/js?key=AIzaSyD6RR0E71krN0b40PtcY6Imbf7Bgp4y6qg&callback=gmapsApiReady"
     );
 
     let promise = new Promise(resolve => {
 
-      console.log('+++ window.gmapsApiReady DECLARATION ( sync code stops here)');
       window.gmapsApiReady = () => {
-        console.log('+++ gmapsApiReady EXECUTION (aysnc - it means google maps is finished)');
         this.map = MapService.initGmapsApiAndPlaceMapInDom()
         resolve();
       };
 
     });
 
-    promise
-      .then(() => {
-        console.log('+++ PROMISE OK setupGoogleMapsApi');
-      })
-
     return promise;
   }
 
   searchPlacesAndUpdateMarkersOnMap(places, query) {
-    console.log('+++ \n\n');
-    console.log('+++ searchPlacesAndUpdateMarkersOnMap');
 
     let placesResults = searchPlaces(places, query);
 
@@ -147,7 +137,6 @@ class App extends Component {
   }
 
   selectPlaceAndRenderDetails(place, i) {
-    console.log('+++ selectPlaceAndRenderDetails'/* , place */);
 
     // Update navigator (virtual dom)
     this.highlightPlace(i);
@@ -169,7 +158,6 @@ class App extends Component {
   }
 
   updateMarkersOnMap(places) {
-    console.log('+++ updateMarkersOnMap (places)');
 
     // Delete existing markers
     this.deleteMarkersOnMap();
@@ -182,17 +170,14 @@ class App extends Component {
   }
 
   deleteMarkersOnMap() {
-    console.log('+++ deleteMarkersOnMap');
     this.markers.forEach(marker => marker.setMap(null));
   }
 
   // ====== Navigator ======
 
   cacheDomElems() {
-    console.log('+++ cacheDomElems');
     this.sidelistEl = document.getElementById('sidelist');
     this.mapEl = document.getElementById('map');
-    console.dir(this.sidelistEl);
   };
 
   /** Toggle the sidelist when the menu icon is clicked. */

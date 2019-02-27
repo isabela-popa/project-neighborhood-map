@@ -10,7 +10,6 @@ let infowindow;
 let bounds;
 
 export function getAllPlaces() {
-  console.log('+++ setup PROMISE getAllPlaces ( sync code stops here)');
   return fetch(`${foursquareApi}venues/search?near=Jassy,Romania&radius=4200&categoryId=4deefb944765f83613cdba6e,` +
     `4bf58dd8d48988d136941735,4bf58dd8d48988d137941735,52e81612bcbc57f1066b7a22,52e81612bcbc57f1066b7a13,` +
     `52e81612bcbc57f1066b7a14,4eb1d4dd4b900d56c88a45fd,4bf58dd8d48988d165941735,52e81612bcbc57f1066b7a32,` +
@@ -18,14 +17,13 @@ export function getAllPlaces() {
     `&client_secret=SVP12TF5XYOZIX3P5HBVZFRE2ER0PDCTGTKYVB0R2PU3MXO0&v=20181216`, { headers })
     .then(response => response.json())
     .then(data => data.response.venues)
-    .then(venues => {
-      console.log('+++ PROMISE OK getAllPlaces venues (async)', venues);
-      return venues;
-    })
-    .catch(error => {
-      console.error("Cannot read for square data", error);
-      // renderWarningTooltip('Cannot get places from Foursquare.')
-    });
+  // .then(venues => {
+  //   return venues;
+  // })
+  // .catch(error => {
+  //   console.error("Cannot read forsquare data", error);
+  //   alert('Cannot get places from Foursquare.');
+  // });
 }
 
 export function loadGoogleMapService(googleMapServiceUrl) {
@@ -52,7 +50,7 @@ export function initGmapsApiAndPlaceMapInDom() {
 }
 
 export function generateMapMarkers(places, map) {
-  console.log('+++ generateMapMarkers');
+
   let markers = [];
 
   for (var i = 0; i < places.length; i++) {
@@ -91,7 +89,6 @@ export function toggleAnimationOnMarker(marker) {
 
 /** Tooltips can be optional on markers. */
 export function setupTooltipsForMarkers(markers, callback) {
-  console.log('+++ setupTooltipsForMarkers');
 
   markers.forEach((marker, i) => {
 
@@ -109,7 +106,6 @@ export function setupTooltipsForMarkers(markers, callback) {
   // If only one marker, then show tooltip
   let onlyOneResultVisible = markers.length === 1;
   if (onlyOneResultVisible) {
-    console.log('+++ onlyOneResultVisible');
     populateInfoWindow(markers[0]);
   }
 }
@@ -120,7 +116,6 @@ export function setupTooltipsForMarkers(markers, callback) {
  * on that markers position.
  */
 export function populateInfoWindow(marker, place) {
-  console.log('+++ populateInfoWindow');
 
   // Check to make sure the infowindow is not already opened on this marker.
   if (infowindow.marker !== marker) {
@@ -131,7 +126,7 @@ export function populateInfoWindow(marker, place) {
         '<img alt="' + marker.title + '" src="' + place.categories[0].icon.prefix +
         'bg_' + 64 + place.categories[0].icon.suffix + '" />' +
         '<description>' + place.categories[0].name + '</description>' +
-        '<div>' + place.location.formattedAddress + '</div>' + 
+        '<div>' + place.location.formattedAddress + '</div>' +
       '</div>'
     );
     infowindow.open(marker.map, marker);
