@@ -1,44 +1,40 @@
+# Neighborhood Map (React)
+
+I have developed a `single-page application using React` featuring a `map of Jassy city, Romania`. I have added additional functionality to this map including: `map markers` to identify `popular locations or places`, various ways to browse the content, such as a `search function` to easily discover these locations and a `list view` to support simple browsing of all locations. Then I have implemented `third-party APIs` that provide additional information about each of those locations.
+
+## App Functionality
+
+* The Neighborhood Map project uses [Google Maps API](https://developers.google.com/maps/documentation/) mapping system, which `displays map markers` identifying `tourist attraction locations in Jassy city located in Romania`.
+* This app `displays those locations by default` when the page is loaded.
+* It has implemented a `list view of the set of locations` mentioned above.
+* Also, the app provides a `filter option` that uses an input field to filter both:
+    * The `list view`
+    * The `map markers` displayed by default on load.
+
+    The list view and the markers update accordingly in real time.
+
+* Neighborhood Map app contains functionality using `third-party APIs` to provide information when a map marker or list view entry is clicked. In this case, the API used comes from [Foursquare](https://developer.foursquare.com/).
+
+* All application components (i.e., search box, list view, the map) render on-screen in a `responsive manner`. The list view can be hidden from a hamburger menu icon on the small screen of a mobile.
+
+* Selecting a location via list item or map marker causes the `map marker to bounce`. This indicates that the location has been selected, and an `associated info window` opens above the map marker with additional information about that location.
+
+* The list of locations is `filterable with a text input`. Filtering the list also filters the markers on the map.
+
+## How to run
+
+To get started using the app:
+
+* save this project to you computer, using the `Clone or download` button found in the upper right-hand side of this project's page,
+* in the terminal, cd into the `project's directory` on your computer,
+* install all project dependencies with `npm install` and
+* start the development server with `npm start`.
+
+After that, the project should load automatically in your browser at http://localhost:3000/.
+
+When available in the browser, the app uses a `service worker` to cache responses to requests for site assets. Visited pages are rendered when there is no network access. This can be tested only in the production mode of the app, which is built using command `npm run build` to the `build` folder.
+
+## Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is the last of the 8 projects to complete in the Front-End Web Developer Nanodegree Program and was built from scratch,without any existing starter code to rely on.
