@@ -39,7 +39,7 @@ body,
 
 #map.map-full {
   width: 100%;
-  left:0;
+  left: 0;
 }
 
 #header-title {
@@ -54,7 +54,7 @@ body,
   padding: 1em;
 }
 
-#header-menu svg{
+#header-menu svg {
   width: 32px;
   fill: #e0e0e0;
 }
@@ -106,11 +106,9 @@ input {
   background: #2a2e36;
   color: #e0e0e0;
   flex: 1;
-}
-
-.footer-inner {
   text-align: center;
-  margin: 0.5em;
+  padding: 0.5em;
+  font-weight: bold;
 }
 
 .foursquare-link {
@@ -118,28 +116,31 @@ input {
 }
 
 
-@media screen and (max-width: 600px){
+@media screen and (max-width: 600px) {
   #header-title {
     font-size: 1.75em;
   }
 }
 
-@media screen and (max-width: 460px){
+@media screen and (max-width: 460px) {
   #header-title {
     font-size: 1.5em;
   }
 }
 
-@media screen and (max-width: 420px){
+@media screen and (max-width: 420px) {
   #sidelist {
     width: 420px;
   }
+
   #sidelist.sidelist-close {
     transform: translate(-420px, 0);
   }
+
   #header-title {
     padding: 0 0 10px 10px;
   }
+
   .footer-inner {
     border-top: 1px solid #555;
     padding-top: 0.5em;
@@ -147,10 +148,11 @@ input {
   }
 }
 
-@media screen and (max-width: 360px){
+@media screen and (max-width: 360px) {
   #sidelist {
     width: 360px;
   }
+
   #sidelist.sidelist-close {
     transform: translate(-360px, 0);
   }

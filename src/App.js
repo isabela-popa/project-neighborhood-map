@@ -33,18 +33,19 @@ class App extends Component {
 
         {/* Header */}
         <header id="header">
-          <a id="header-menu" onClick={(e) => this.toggleMenu(e)}>
+          <a href="/" id="header-menu" role="button" aria-label="Toggle visibility of locations list"
+            onClick={(e) => this.toggleMenu(e)}>
             {/* Source: Web foundations - Common Responsive Patterns - Lesson 14 */}
             <svg xmlns="http://www.w3.org/TR/SVG" viewBox="0 0 24 24">
               <path d="M2 6h20v3H2zm0 5h20v3H2zm0 5h20v3H2z" />
             </svg>
           </a>
-          <h1 id="header-title">
+          <h1 id="header-title" tabIndex={0}>
             Tourist Attractions in Jassy
           </h1>
         </header>
 
-        <div className="content">
+        <main className="content">
 
           {/* Navigator */}
           <nav id="sidelist">
@@ -60,14 +61,14 @@ class App extends Component {
           </nav>
 
           {/* Map */}
-          <main id="map" />
+          <section id="map" aria-label="Map" role="application" tabIndex={0}></section>
 
-        </div>
+        </main>
 
-        <footer id="footer">
-          <h4 className="footer-inner">
-            Additional location data provided using <a href="https://developer.foursquare.com/" className="foursquare-link">Foursquare API</a>
-          </h4>
+        <footer id="footer" tabIndex={0}>
+          Additional location data provided using <a
+            href="https://developer.foursquare.com/" className="foursquare-link"
+            tabIndex={0} aria-label="Link to Foursquare developers site">Foursquare API</a>
         </footer>
 
       </div>
@@ -197,6 +198,7 @@ class App extends Component {
   /** Toggle the sidelist when the menu icon is clicked. */
   toggleMenu(e) {
     e.stopPropagation();
+    e.preventDefault();
     this.sidelistEl.classList.toggle('sidelist-close');
     this.mapEl.classList.toggle('map-full');
   }
