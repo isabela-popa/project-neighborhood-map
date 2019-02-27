@@ -128,7 +128,7 @@ export function populateInfoWindow(marker, place) {
         infowindow.setContent(
             '<div>' + marker.title + '</div>' +
             '<img alt="' + marker.title + '" src="' + place.categories[0].icon.prefix +
-            '"bg_"' + 64 + place.categories[0].icon.suffix + '" />' +
+            'bg_' + 64 + place.categories[0].icon.suffix + '" />' +
             '<description>' + place.categories[0].name + '</description>' +
             '<div>' + place.location.formattedAddress + '</div>'
         );

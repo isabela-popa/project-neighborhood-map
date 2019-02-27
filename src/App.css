@@ -22,7 +22,7 @@ body,
 
 .content {
   position: relative;
-  flex: 99;
+  flex: 98;
   width: 100%;
   background: #2a2e36;
 }
@@ -36,23 +36,10 @@ body,
   top: 0;
   left: 300px;
 }
+
 #map.map-full {
   width: 100%;
   left:0;
-}
-
-#sidelist {
-  width: 300px;
-  height: 100%;
-  position: absolute;
-  transform: translate(0px, 0);
-  transition: transform 0.3s ease;
-  z-index: 1000;
-  background: #2a2e36;
-  overflow-y: hidden;
-  overflow: scroll;
-  padding: 0 10px 0;
-  box-sizing: border-box;
 }
 
 #header-title {
@@ -70,6 +57,30 @@ body,
 #header-menu svg{
   width: 32px;
   fill: #e0e0e0;
+}
+
+.search-places {
+  border-bottom: 1px solid #555;
+  display: flex;
+  padding: 20px;
+}
+
+input {
+  width: 100%;
+}
+
+#sidelist {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  transform: translate(0px, 0);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  background: #2a2e36;
+  overflow-y: hidden;
+  overflow: scroll;
+  padding: 0 10px 0;
+  box-sizing: border-box;
 }
 
 #sidelist.sidelist-close {
@@ -90,15 +101,21 @@ body,
   cursor: pointer;
 }
 
-.search-places {
-  border-bottom: 1px solid #555;
-  display: flex;
-  padding: 20px;
+#footer {
+  background: #2a2e36;
+  color: #e0e0e0;
+  flex: 1;
 }
 
-input {
-  width: 100%;
+.footer-inner {
+  text-align: center;
+  margin: 0.5em;
 }
+
+.foursquare-link {
+  color: orchid;
+}
+
 /*
 @media screen and (min-width: 600px){
 	body {

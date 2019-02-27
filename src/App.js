@@ -64,6 +64,12 @@ class App extends Component {
 
         </div>
 
+        <footer id="footer">
+          <h4 className="footer-inner">
+            Additional location data provided using <a href="https://developer.foursquare.com/" className="foursquare-link">Foursquare API</a>
+          </h4>
+        </footer>
+
       </div>
     );
   }
