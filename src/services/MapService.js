@@ -60,6 +60,7 @@ export function generateMapMarkers(places, map) {
         // Marker position
         let position = { lat: places[i].location.lat, lng: places[i].location.lng };
         let place = places[i]
+        // console.log('place', place);
         let title = place.name;
 
         // Create a marker per location, and put into markers array.
@@ -118,13 +119,19 @@ export function setupTooltipsForMarkers(markers, callback) {
  * one infowindow which will open at the marker that is clicked, and populate based
  * on that markers position.
  */
-export function populateInfoWindow(marker) {
+export function populateInfoWindow(marker, place) {
     console.log('+++ populateInfoWindow');
 
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker !== marker) {
         infowindow.marker = marker;
-        infowindow.setContent('<div>' + marker.title + '</div>');
+        infowindow.setContent(
+            '<div>' + marker.title + '</div>' +
+            '<img alt="' + marker.title + '" src="' + place.categories[0].icon.prefix +
+            '"bg_"' + 64 + place.categories[0].icon.suffix + '" />' +
+            '<description>' + place.categories[0].name + '</description>' +
+            '<div>' + place.location.formattedAddress + '</div>'
+        );
         infowindow.open(marker.map, marker);
 
         // Make sure the marker property is cleared if the infowindow is closed.
