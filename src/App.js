@@ -147,6 +147,10 @@ class App extends Component {
 
     // Manually update gmaps
     MapService.populateInfoWindow(place._marker);
+
+    // Animate the marker when clicked
+    MapService.toggleAnimationOnMarker(place._marker);
+
   }
 
   highlightPlace(i) {

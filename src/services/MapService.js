@@ -79,6 +79,15 @@ export function generateMapMarkers(places, map) {
     return markers;
 }
 
+export function toggleAnimationOnMarker(marker) {
+    if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+    } else {
+        marker.setAnimation(window.google.maps.Animation.BOUNCE);
+    }
+    setTimeout(() => { marker.setAnimation(null) }, 800);
+}
+
 /** Tooltips can be optional on markers. */
 export function setupTooltipsForMarkers(markers, callback) {
     console.log('+++ setupTooltipsForMarkers');
